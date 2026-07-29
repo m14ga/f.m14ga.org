@@ -1,0 +1,119 @@
+name: Sync Forum to Root (Preserve CNAME & README)
+
+on:
+  schedule:
+    - cron: '0 16 * * *'   # Daily at 16:00 UTC
+  workflow_dispatch:        # Manual trigger
+
+jobs:
+  sync-forum-to-root:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      # 1. Checkout your target repository (m14ga/f.m14ga.org)
+      - name: Checkout target repo
+        uses: actions/checkout@v4
+        with:
+          repository: m14ga/f.m14ga.org
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      # 2. Clone ONLY the /forum directory from the source repo (zjqjacky/zhujingqi.com)
+      - name: Clone forum directory from source
+        uses: actions/checkout@v4
+        with:
+          repository: zjqjacky/zhujingqi.com
+          path: temp-forum-sync
+          sparse-checkout: forum
+
+      # 3. Check for differences (ignoring .git, workflows, CNAME, and README.md)
+      - name: Check for changes
+        id: check-changes
+        run: |
+          SOURCE_DIR="temp-forum-sync/forum"
+          
+          # Create a temporary copy of the current root for comparison
+          # Exclude protected files and system folders to avoid false positives
+          mkdir -p temp-root-compare
+          rsync -av \
+            --exclude='.git' \
+            --exclude='.github/workflows' \
+            --exclude='CNAME' \
+            --exclude='README.md' \
+            --exclude='temp-forum-sync' \
+            --exclude='temp-root-compare' \
+            ./ temp-root-compare/ > /dev/null 2>&1
+          rm -rf temp-root-compare/.git
+
+          # Compare the source forum with the current root (excluding protected files)
+          if diff -rq "$SOURCE_DIR" temp-root-compare 2>/dev/null; then
+            echo "✅ No changes detected."
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
+          else
+            echo "🔄 Changes detected."
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
+            # Generate a summary of what changed
+            diff -rq "$SOURCE_DIR" temp-root-compare 2>/dev/null | grep "differ" | \
+              sed 's/^/- /' > diff_summary.txt || true
+            {
+              echo "diff_summary<<EOF"
+              cat diff_summary.txt 2>/dev/null || echo "Files changed"
+              echo "EOF"
+            } >> $GITHUB_OUTPUT
+          fi
+
+      # 4. Sync the source forum contents into the root (preserving CNAME and README.md)
+      - name: Copy forum files to root
+        if: steps.check-changes.outputs.changes_detected == 'true'
+        run: |
+          SOURCE_DIR="temp-forum-sync/forum"
+          
+          # Copy everything from source/forum to the root.
+          # --delete removes files in the root that don't exist in the source.
+          # Protected files are explicitly excluded from sync and deletion.
+          rsync -av --delete \
+            --exclude='.git' \
+            --exclude='.github/workflows' \
+            --exclude='CNAME' \
+            --exclude='README.md' \
+            --exclude='temp-forum-sync' \
+            "$SOURCE_DIR"/ ./
+
+      # 5. Commit and push changes (only if changes detected)
+      - name: Commit and push
+        if: steps.check-changes.outputs.changes_detected == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Stage all changes except the protected files (just in case)
+          git add -A
+          # Unstage any accidental additions of protected files
+          git reset HEAD CNAME README.md 2>/dev/null || true
+          
+          # Check if there are staged changes
+          if git diff --staged --quiet; then
+            echo "ℹ️ No staged changes after all."
+          else
+            COMMIT_MSG="🔄 Sync forum from zjqjacky/zhujingqi.com to root
+            
+            Changes detected:
+            ${{ steps.check-changes.outputs.diff_summary }}"
+            
+            git commit -m "$COMMIT_MSG"
+            git push
+            echo "✅ Changes pushed."
+          fi
+
+      # 6. No changes log
+      - name: No changes
+        if: steps.check-changes.outputs.changes_detected == 'false'
+        run: echo "ℹ️ No changes to sync."
+
+      # 7. Cleanup
+      - name: Cleanup
+        if: always()
+        run: |
+          rm -rf temp-forum-sync temp-root-compare diff_summary.txt
