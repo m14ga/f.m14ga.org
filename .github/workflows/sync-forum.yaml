@@ -85,6 +85,9 @@ jobs:
       - name: Commit and push
         if: steps.check-changes.outputs.changes_detected == 'true'
         run: |
+          # Remove temp checkout dirs before staging — they must never be committed
+          rm -rf temp-forum-sync temp-root-compare
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
