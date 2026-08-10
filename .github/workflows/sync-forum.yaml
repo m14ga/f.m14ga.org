@@ -2,7 +2,7 @@ name: Sync Forum to Root (Preserve CNAME & README)
 
 on:
   schedule:
-    - cron: '0 16 * * *'   # Daily at 16:00 UTC
+    - cron: '0 17 * * *'   # Daily at 17:00 UTC
   workflow_dispatch:        # Manual trigger
 
 jobs:
