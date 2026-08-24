@@ -581,6 +581,13 @@ const TRANSLATIONS = {
 		de: "folgt dir",
 		"zh-TW": "關注了你"
 	},
+	notif_friend: {
+		zh: "添加了你为好友",
+		en: "added you as a friend",
+		es: "te añadió como amigo",
+		de: "hat dich als Freund hinzugefügt",
+		"zh-TW": "添加了你為好友"
+	},
 	notif_reply: {
 		zh: "回复了你的评论",
 		en: "replied to your comment",
@@ -608,6 +615,13 @@ const TRANSLATIONS = {
 		es: "{0} mensajes no leídos",
 		de: "{0} ungelesene Nachrichten",
 		"zh-TW": "有 {0} 條未讀訊息"
+	},
+	notif_op_reply: {
+		zh: "帖主评论了你参与的帖子",
+		en: "OP commented on a post you interacted with",
+		es: "El OP comentó en una publicación en la que participaste",
+		de: "OP hat einen Beitrag kommentiert, an dem du beteiligt warst",
+		"zh-TW": "帖主評論了你參與的帖子"
 	},
 	notif_title: {
 		zh: "通知",
@@ -727,13 +741,6 @@ const TRANSLATIONS = {
 		es: "Patrocinar",
 		de: "Sponsor",
 		"zh-TW": "贊助"
-	},
-	profile_download: {
-		zh: "获取应用版",
-		en: "Get App",
-		es: "Obtener app",
-		de: "App herunterladen",
-		"zh-TW": "獲取應用版"
 	},
 	profile_theme_sys: {
 		zh: "跟随系统",
@@ -1239,6 +1246,55 @@ const TRANSLATIONS = {
 		de: "Hintergrund entfernen",
 		"zh-TW": "移除背景"
 	},
+	settings_change_pass: {
+		zh: "修改密码",
+		en: "Change Password",
+		es: "Cambiar contraseña",
+		de: "Passwort ändern",
+		"zh-TW": "修改密碼"
+	},
+	pass_old: {
+		zh: "旧密码",
+		en: "Old password",
+		es: "Contraseña actual",
+		de: "Altes Passwort",
+		"zh-TW": "舊密碼"
+	},
+	pass_new: {
+		zh: "新密码（至少 6 位）",
+		en: "New password (min 6 chars)",
+		es: "Nueva contraseña (mín. 6 caracteres)",
+		de: "Neues Passwort (mind. 6 Zeichen)",
+		"zh-TW": "新密碼（至少 6 位）"
+	},
+	pass_confirm: {
+		zh: "确认新密码",
+		en: "Confirm new password",
+		es: "Confirmar nueva contraseña",
+		de: "Neues Passwort bestätigen",
+		"zh-TW": "確認新密碼"
+	},
+	pass_changed_ok: {
+		zh: "密码已修改",
+		en: "Password changed",
+		es: "Contraseña cambiada",
+		de: "Passwort geändert",
+		"zh-TW": "密碼已修改"
+	},
+	pass_too_short: {
+		zh: "新密码至少 6 位",
+		en: "Password must be at least 6 characters",
+		es: "La contraseña debe tener al menos 6 caracteres",
+		de: "Das Passwort muss mindestens 6 Zeichen lang sein",
+		"zh-TW": "新密碼至少 6 位"
+	},
+	pass_mismatch: {
+		zh: "两次输入的新密码不一致",
+		en: "Passwords do not match",
+		es: "Las contraseñas no coinciden",
+		de: "Passwörter stimmen nicht überein",
+		"zh-TW": "兩次輸入的新密碼不一致"
+	},
 	timeline_today: {
 		zh: "今天",
 		en: "Today",
@@ -1428,20 +1484,6 @@ const TRANSLATIONS = {
 		de: "<a href=\"https://zhujingqi.com/money.html\">Klicke hier um Jacky zu sponsern</a>",
 		"zh-TW": "<a href=\"https://zhujingqi.com/money.html\">點擊此處贊助 Jacky</a>"
 	},
-	download_title: {
-		zh: "获取应用版 Jacky 论坛",
-		en: "Get Jacky Forum App",
-		es: "Obtener la app de Jacky Forum",
-		de: "Jacky Forum App herunterladen",
-		"zh-TW": "獲取應用版 Jacky 論壇"
-	},
-	download_content: {
-		zh: "<h4>Windows系统</h4><details><summary>如何安装？</summary><p>1. <a href=\"https://github.com/zhujingqi/download/releases/download/1.0.0/Jacky.Forum.Setup.1.0.0.exe\">点击<b>下载EXE安装程序</b></a><br>2. 双击安装程序，安装<b>桌面版 Jacky 论坛</b><br>3. 更加便捷地使用 <b>Jacky 论坛</b> 吧！<h6>注：国内下载可能<del>较慢</del>非常慢！</h6></p></details><h4>iOS系统</h4><details><summary>如何安装？</summary>使用Safari浏览器访问 <b>Jacky 论坛</b><br><img src=\"assets/img/1.jpg\" style=\"width:100px;margin-top:10px;\" class=\"zoomable\" /><img src=\"assets/img/2.jpg\" style=\"width:100px;margin-top:10px;\" class=\"zoomable\" /><img src=\"assets/img/3.jpg\" style=\"width:100px;margin-top:10px;\" class=\"zoomable\" /></details>",
-		en: "<h4>Windows</h4><details><summary>How to install?</summary><p>1. <a href=\"https://github.com/zhujingqi/download/releases/download/1.0.0/Jacky.Forum.Setup.1.0.0.exe\">Click to <b>download the EXE installer</b></a><br>2. Double-click the installer to install <b>Jacky Forum Desktop</b><br>3. Enjoy <b>Jacky Forum</b> more conveniently!<h6>Note: Downloads from China may be <del>slow</del> very slow!</h6></p></details><h4>iOS</h4><details><summary>How to install?</summary>Visit <b>Jacky Forum</b> using Safari<br><img src=\"assets/img/1.jpg\" style=\"width:100px;margin-top:10px;\" class=\"zoomable\" /><img src=\"assets/img/2.jpg\" style=\"width:100px;margin-top:10px;\" class=\"zoomable\" /><img src=\"assets/img/3.jpg\" style=\"width:100px;margin-top:10px;\" class=\"zoomable\" /></details>",
-		es: "<h4>Windows</h4><details><summary>¿Cómo instalar?</summary><p>1. <a href=\"https://github.com/zhujingqi/download/releases/download/1.0.0/Jacky.Forum.Setup.1.0.0.exe\">Haz clic para <b>descargar el instalador EXE</b></a><br>2. Haz doble clic en el instalador para instalar <b>Jacky Forum Escritorio</b><br>3. ¡Disfruta de <b>Jacky Forum</b> más cómodamente!<h6>Nota: Las descargas desde China pueden ser <del>lentas</del> ¡muy lentas!</h6></p></details><h4>iOS</h4><details><summary>¿Cómo instalar?</summary>Visita <b>Jacky Forum</b> usando Safari<br><img src=\"assets/img/1.jpg\" style=\"width:100px;margin-top:10px;\" class=\"zoomable\" /><img src=\"assets/img/2.jpg\" style=\"width:100px;margin-top:10px;\" class=\"zoomable\" /><img src=\"assets/img/3.jpg\" style=\"width:100px;margin-top:10px;\" class=\"zoomable\" /></details>",
-		de: "<h4>Windows</h4><details><summary>Wie installieren?</summary><p>1. <a href=\"https://github.com/zhujingqi/download/releases/download/1.0.0/Jacky.Forum.Setup.1.0.0.exe\">Klicke zum <b>Herunterladen des EXE-Installers</b></a><br>2. Doppelklicke den Installer um <b>Jacky Forum Desktop</b> zu installieren<br>3. Genieße <b>Jacky Forum</b> bequemer!<h6>Hinweis: Downloads aus China können <del>langsam</del> sehr langsam sein!</h6></p></details><h4>iOS</h4><details><summary>Wie installieren?</summary>Besuche <b>Jacky Forum</b> mit Safari<br><img src=\"assets/img/1.jpg\" style=\"width:100px;margin-top:10px;\" class=\"zoomable\" /><img src=\"assets/img/2.jpg\" style=\"width:100px;margin-top:10px;\" class=\"zoomable\" /><img src=\"assets/img/3.jpg\" style=\"width:100px;margin-top:10px;\" class=\"zoomable\" /></details>",
-		"zh-TW": "<h4>Windows系統</h4><details><summary>如何安裝？</summary><p>1. <a href=\"https://github.com/zhujingqi/download/releases/download/1.0.0/Jacky.Forum.Setup.1.0.0.exe\">點擊<b>下載EXE安裝程式</b></a><br>2. 雙擊安裝程式，安裝<b>桌面版 Jacky 論壇</b><br>3. 更加便捷地使用 <b>Jacky 論壇</b> 吧！<h6>注：國內下載可能<del>較慢</del>非常慢！</h6></p></details><h4>iOS系統</h4><details><summary>如何安裝？</summary>使用Safari瀏覽器訪問 <b>Jacky 論壇</b><br><img src=\"assets/img/1.jpg\" style=\"width:100px;margin-top:10px;\" class=\"zoomable\" /><img src=\"assets/img/2.jpg\" style=\"width:100px;margin-top:10px;\" class=\"zoomable\" /><img src=\"assets/img/3.jpg\" style=\"width:100px;margin-top:10px;\" class=\"zoomable\" /></details>"
-	},
 	mention_click_hint: {
 		zh: "点一下插入",
 		en: "Click to insert",
@@ -1455,6 +1497,20 @@ const TRANSLATIONS = {
 		es: "Dueño",
 		de: "Besitzer",
 		"zh-TW": "站長"
+	},
+	badge_op: {
+		zh: "帖主",
+		en: "OP",
+		es: "OP",
+		de: "OP",
+		"zh-TW": "帖主"
+	},
+	badge_self: {
+		zh: "我",
+		en: "Me",
+		es: "Yo",
+		de: "Ich",
+		"zh-TW": "我"
 	},
 	role_official: {
 		zh: "官方用户",
