@@ -1187,31 +1187,6 @@ body.dark .userLevel {
 	color: #aaa;
 }
 
-.authorTag {
-	display: inline-block;
-	font-size: 11px;
-	line-height: 1;
-	padding: 1px 6px;
-	border-radius: 6px;
-	margin-left: 4px;
-	vertical-align: middle;
-	white-space: nowrap;
-	font-weight: 600;
-	color: #fff;
-}
-.authorTag.op {
-	background: rgba(212, 160, 23, .45);
-}
-.authorTag.self {
-	background: var(--green);
-}
-body.dark .authorTag.op {
-	background: rgba(184, 134, 11, .5);
-}
-body.dark .authorTag.self {
-	background: var(--green);
-}
-
 .userLevel.lv10 {
 	background: linear-gradient(90deg, #e08720, #f5b342, #e08720);
 	background-size: 200% 100%;

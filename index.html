@@ -12,8 +12,6 @@
 	</head>
 	<body>
 		<script>
-			// Apply the saved theme before first paint to avoid a flash of the
-			// wrong theme. Preference: "sys" (follow OS) | "light" | "dark".
 			(function () {
 				try {
 					var t = localStorage.getItem("theme") || "sys";

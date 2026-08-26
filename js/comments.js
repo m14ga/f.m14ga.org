@@ -40,7 +40,7 @@ function buildCommentTree(comments) {
 	}
 	return roots;
 }
-async function renderComments(postId, container, comments, postAuthorId) {
+async function renderComments(postId, container, comments) {
 	container.innerHTML = "";
 	if (!comments) {
 		try {
@@ -51,7 +51,7 @@ async function renderComments(postId, container, comments, postAuthorId) {
 	}
 	const tree = buildCommentTree(comments);
 	const indent = window.innerWidth <= 800 ? 12 : 24;
-	if (postAuthorId === undefined) postAuthorId = Number(container.closest(".post")?.dataset.authorId) || null;
+	const postAuthorId = Number(container.closest(".post")?.dataset.authorId) || null;
 	async function renderTree(parentEl, list, depth) {
 		for (const c of list) {
 			const div = document.createElement("div");
@@ -66,9 +66,8 @@ async function renderComments(postId, container, comments, postAuthorId) {
 									<img class="avatar" src="${avatar}" onerror="this.onerror=null;this.src='assets/img/head.svg'">
 									<b>${c.users?.name || t("post_unknown")}</b>
 									<span class="userLevel">${getUserLevel(c.users?.coins || 0)}</span>
-								${getRoleBadge(c.users)}
-								${c.author === postAuthorId ? '<span class="authorTag op">' + t("badge_op") + '</span>' : ""}
-							</span>: <span class="commentContent"></span>
+									${getRoleBadge(c.users)}
+								</span>: <span class="commentContent"></span>
 								<span class="commentActions">
 									<span class="replyBtn" data-reply-to="${c.id}">${t("reply")}</span>
 									${delBtn}
@@ -208,7 +207,7 @@ async function addComment(postId, content, postAuthorId) {
 				input.blur();
 			}
 			const list = postDiv.querySelector(".commentList");
-			if (list) await renderComments(postId, list, undefined, postAuthorId);
+			if (list) await renderComments(postId, list);
 		}
 		await changeCoins(currentUser.id, 3);
 		await refreshNotificationBadge();
@@ -252,7 +251,7 @@ async function addReply(postId, parentId, content, postAuthorId, parentAuthorId)
 			.querySelector(`.post[data-post-id="${postId}"]`);
 		if (postDiv) {
 			const list = postDiv.querySelector(".commentList");
-			if (list) await renderComments(postId, list, undefined, postAuthorId);
+			if (list) await renderComments(postId, list);
 		}
 		await changeCoins(currentUser.id, 3);
 		await refreshNotificationBadge();

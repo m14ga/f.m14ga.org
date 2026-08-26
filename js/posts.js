@@ -509,7 +509,7 @@ async function loadPosts(page = 1, container = $("posts")) {
 		}
 		for (const p of posts) {
 			const commentList = document.querySelector(`[data-post-id="${p.id}"] .commentList`);
-			if (commentList) renderComments(p.id, commentList, commentsByPost[p.id] || [], p.author);
+			if (commentList) renderComments(p.id, commentList, commentsByPost[p.id] || []);
 		}
 	} catch (e) {
 		console.error(e);
