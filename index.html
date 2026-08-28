@@ -104,17 +104,7 @@
 				<h3 id="noticeTitle">公告</h3>
 				<div class="noticeItem" id="noticeWelcome">🎉欢迎来到 <b>Jacky 论坛</b> :)</div>
 				<br>
-				<div class="noticeItem">
-					<details>
-						<summary><b id="noticeUpdates">近期更新</b></summary>
-						<span>
-							· AI用户协议<br>
-							· 更好的JWT<br>
-							· Jacky AI<br>
-							· 重构访客模式<br>
-						</span>
-					</details>
-				</div>
+				<div id="announceBar"></div>
 				<br>
 				<div class="noticeItem" id="statsBox">
 					<strong id="statsTitle">全站统计</strong><br>
@@ -130,7 +120,6 @@
 					</a>
 				</div>
 			</div>
-			<div id="announceBar"></div>
 			<div id="fortuneBox">
 				<span id="fortuneTitle">今日运势</span>
 				<button id="fortuneBtn">获取运势</button>
@@ -213,7 +202,7 @@
 			<div id="newUsers"></div>
 		</div>
 		<div id="profilePage" class="hidden" style="display:flex;flex-direction:column;height:100vh;">
-			<div id="backBtn">←</div>
+			<div id="backBtn"><img src="icon/back.svg" style="width:18px;height:auto;vertical-align:middle;"></div>
 			<div id="profileCard">
 				<div id="profileLeft">
 					<img id="profileAvatar" class="avatar big" src="assets/img/head.svg">
@@ -278,7 +267,7 @@
 			</div>
 		</div>
 		<div id="postPage" class="hidden" style="display:flex;flex-direction:column;height:100vh;">
-			<div id="postBackBtn">←</div>
+			<div id="postBackBtn"><img src="icon/back.svg" style="width:18px;height:auto;vertical-align:middle;"></div>
 			<div id="singlePost"
 				style="width:100%;max-width:800px;overflow-y:auto;overflow-x:hidden;flex:1;padding:20px 0;margin:0 auto;box-sizing:border-box;">
 			</div>

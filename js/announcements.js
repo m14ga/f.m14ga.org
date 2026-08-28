@@ -21,7 +21,7 @@ async function loadAnnouncements() {
 			return;
 		}
 		bar.innerHTML =
-			'<div class="annTitle">' + t("announcement_btn") + '</div>' +
+			'<strong id="statsTitle">' + t("announcement_btn") + '</strong><br>' +
 			posts.map(p => {
 				const text = stripInternalCodes(p.content || "").replace(/<[^>]*>/g, "").replace(
 					/\s+/g, " ").trim();

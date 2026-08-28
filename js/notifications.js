@@ -25,6 +25,7 @@ async function createNotification({
 }
 
 function notifLabel(n) {
+	if (n.type === "chat_friend") return t("notif_friend");
 	if (n.type === "follow") return t("notif_follow");
 	if (n.type === "reply") return t("notif_reply");
 	if (n.type === "comment") return t("notif_comment");
@@ -217,7 +218,7 @@ async function openSinglePost(postId) {
 			submit());
 	}
 	postDiv.querySelector(".userLink").onclick = () => viewUser(post.author);
-	renderComments(post.id, postDiv.querySelector(".commentList"));
+	renderComments(post.id, postDiv.querySelector(".commentList"), undefined, post.author);
 	container.style.paddingBottom = "60px";
 }
 

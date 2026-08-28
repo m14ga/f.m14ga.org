@@ -1187,6 +1187,31 @@ body.dark .userLevel {
 	color: #aaa;
 }
 
+.authorTag {
+	display: inline-block;
+	font-size: 11px;
+	line-height: 1;
+	padding: 1px 6px;
+	border-radius: 6px;
+	margin-left: 4px;
+	vertical-align: middle;
+	white-space: nowrap;
+	font-weight: 600;
+	color: #fff;
+}
+.authorTag.op {
+	background: rgba(212, 160, 23, .45);
+}
+.authorTag.self {
+	background: var(--green);
+}
+body.dark .authorTag.op {
+	background: rgba(184, 134, 11, .5);
+}
+body.dark .authorTag.self {
+	background: var(--green);
+}
+
 .userLevel.lv10 {
 	background: linear-gradient(90deg, #e08720, #f5b342, #e08720);
 	background-size: 200% 100%;
@@ -1806,30 +1831,21 @@ body.dark .roleBadge.blue_diamond {
 }
 
 #announceBar {
-	position: absolute;
-	right: 2%;
-	top: 42%;
-	width: 10%;
-	background: var(--card);
-	padding: 20px;
-	border-radius: 20px;
-	box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+	position: static;
+	width: 100%;
+	background: none;
+	padding: 0;
+	border-radius: 0;
+	box-shadow: none;
 	text-align: left;
-	font-size: 14px;
-	max-height: 320px;
-	overflow-y: auto;
-}
-
-#announceBar .annTitle {
-	font-weight: 700;
-	font-size: 15px;
-	margin-bottom: 10px;
-	color: var(--green);
+	max-height: none;
+	overflow-y: visible;
 }
 
 .annItem {
-	padding: 8px 0;
-	font-size: 14px;
+	padding: 4px 0;
+	font-size: 16px;
+	line-height: 1.2;
 	cursor: pointer;
 	border-bottom: 1px solid rgba(0, 0, 0, .06);
 	overflow: hidden;

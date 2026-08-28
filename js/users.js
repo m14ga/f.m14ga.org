@@ -161,6 +161,7 @@ function escapeAttr(s) {
 								<button class="settingsLinkBtn" id="setAvatarBtn">${t("profile_edit_avatar")}</button>
 								<button class="settingsLinkBtn" id="setBioBtn">${t("profile_edit_desc")}</button>
 							</div>
+							<button class="settingsLinkBtn" id="setPassBtn" style="margin-top:6px;">${t("settings_change_pass")}</button>
 							<div class="settingsCard" style="margin-top:6px;">
 								<div style="display:flex;align-items:center;justify-content:space-between;">
 									<span class="settingsLabel" style="margin:0;">${t("follow_public_label")}</span>
@@ -176,7 +177,6 @@ function escapeAttr(s) {
 								<button class="settingsLinkBtn" id="setSponsorBtn">${t("profile_sponsor")}</button>
 							</div>
 							${isAdmin(user) ? `<button class="settingsLinkBtn" id="setAILogsBtn" style="margin-top:6px;">${t("ai_logs_admin")}</button>` : ""}
-							<button class="settingsLinkBtn" id="setDownloadBtn" style="margin-top:6px;">${t("profile_download")}</button>
 							<a class="settingsLinkBtn" id="setRssBtn" href="rss.xml" target="_blank" rel="noopener" style="margin-top:6px;text-decoration:none;box-sizing:border-box;">${t("settings_rss")}</a>
 						</div>
 					`);
@@ -231,6 +231,38 @@ function escapeAttr(s) {
 							$("settingsFollowPublic").checked = !$("settingsFollowPublic").checked;
 						}
 					};
+					$("setPassBtn").onclick = () => {
+						$("modal").classList.add("hidden");
+						box.style.width = "400px";
+						$("modalText").innerHTML = `
+							<h3>${t("settings_change_pass")}</h3>
+							<input type="password" id="passOldInput" placeholder="${t("pass_old")}" autocomplete="current-password">
+							<input type="password" id="passNewInput" placeholder="${t("pass_new")}" autocomplete="new-password" style="margin-top:8px;">
+							<input type="password" id="passConfirmInput" placeholder="${t("pass_confirm")}" autocomplete="new-password" style="margin-top:8px;">
+							<div style="margin-top:14px;">
+								<button id="passSaveBtn">${t("profile_save")}</button>
+							</div>
+						`;
+						$("modal").classList.remove("hidden");
+						$("passSaveBtn").onclick = async () => {
+							const oldP = $("passOldInput").value;
+							const newP = $("passNewInput").value;
+							const confirmP = $("passConfirmInput").value;
+							if (!oldP || !newP || !confirmP) return;
+							if (newP.length < 6) return modal(t("pass_too_short"));
+							if (newP !== confirmP) return modal(t("pass_mismatch"));
+							try {
+								await apiPut("/api/auth/password", {
+									old_pass: await hash(oldP),
+									new_pass: await hash(newP)
+								});
+							} catch (e) {
+								return modal(t("save_fail", e.message));
+							}
+							$("modal").classList.add("hidden");
+							showCoinMsg(t("pass_changed_ok"));
+						};
+					};
 					$("setCardBgBtn").onclick = () => {
 						$("modal").classList.add("hidden");
 						openCardBgEditor(user);
@@ -265,10 +297,7 @@ function escapeAttr(s) {
 			$("modal").classList.add("hidden");
 			openAILogs();
 		};
-	}					$("setDownloadBtn").onclick = () => {
-		box.style.width = "800px";
-		modal(`<h3>${t("download_title")}</h3>${t("download_content")}`);
-	};
+	}
 }
 
 async function viewUser(uid) {
