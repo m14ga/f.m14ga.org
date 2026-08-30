@@ -107,6 +107,7 @@ $("sendBtn").onclick = async () => {
 		finalContent = `[[bg:${selectedPostBg}]]` + finalContent;
 	}
 	const postId = Date.now();
+	const scopeData = computeVisibleTo();
 	try {
 		await apiPost("/api/posts", {
 			id: postId,
@@ -114,17 +115,17 @@ $("sendBtn").onclick = async () => {
 			time: new Date().toISOString(),
 			author: currentUser.id,
 			tag: tag,
-			scope: selectedScope,
-			allow_user_ids: scopeAllowUsers,
-			allow_tag_ids: scopeAllowGroups,
-			deny_user_ids: scopeDenyUsers,
-			deny_tag_ids: scopeDenyGroups
+			scope: scopeData.scope,
+			visible_to: scopeData.visible_to,
+			visible_not: scopeData.visible_not
 		});
 	} catch (e) {
 		if (e.message === "JWT_EXPIRED") return;
 		return modal(t("post_fail", e.message));
 	}
-	await notifyMentions(finalContent, postId, null);
+	if (scopeData.scope === "public" || scopeData.scope === "followers") {
+		await notifyMentions(finalContent, postId, null);
+	}
 	try {
 		for (const k of Object.keys(sessionStorage)) {
 			if (k.startsWith("tlDays_")) sessionStorage.removeItem(k);
@@ -144,5 +145,4 @@ $("sendBtn").onclick = async () => {
 	loadPosts(1);
 	setActive("homeBtn");
 	loadAnnouncements();
-	await changeCoins(currentUser.id, 5);
 };
